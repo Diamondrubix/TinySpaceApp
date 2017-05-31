@@ -19,12 +19,13 @@ class HelloWorldApp extends Component {
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {text: 'disadefault',};
-        this.user = ""
+        this.state = {user: 'disadefault',password:'nopass'};
     }
-    _onPressButton() {
-        console.log("You tapped the button!");
-        poster.login(this.state.text,"hardcoded")
+    login=function(user,pass) {
+        console.log("You tapped the button!")
+        //this.setState({text: 'blablabla'})
+        //poster.login("apost","hardcoded")
+        poster.login(user,pass)
     }
 
     render() {
@@ -33,52 +34,21 @@ class LoginPage extends Component {
                 <TextInput
                     style={{height: 40}}
                     placeholder="UserName"
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(text) => this.setState({user:text,password:this.state.password})}
                 />
                 <TextInput
                     style={{height: 40}}
                     placeholder="password"
-                    onChangeText={(text) => this.setState({text})}
+                    onChangeText={(text) => this.setState({user:this.state.user,password:text})}
                 />
-                <Button
-                    style={{fontSize: 20}}
-                    title="login"
-                    onPress={this._onPressButton}
-                    color="#841584">
-                    Press Me!
-                </Button>
+                <Button title={"login"}
+                        color={"#ae59f3"}
+                    onPress={()=>{
+                        this.login(this.state.user,this.state.password)
+                        //this.login("tryit","another")
+                }
+                }/>
             </View>
-        );
-    }
-}
-
-class NameForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {value: ''};
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
-    }
-
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label>
-                    Name:
-                    <input type="text" value={this.state.value} onChange={this.handleChange} />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
         );
     }
 }
@@ -94,6 +64,7 @@ class Main extends Component{
     }
 }
 poster.testConnection()
+poster.login("here","there")
 
 //AppRegistry.registerComponent('TinySpaceApp', () => PizzaTranslator);
 AppRegistry.registerComponent('TinySpaceApp', () => Main);
