@@ -19,13 +19,13 @@ class HelloWorldApp extends Component {
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {user: 'disadefault',password:'nopass'};
+        this.state = {user: 'disadefault',password:'nopass',sessionKey:'notLogged in'};
     }
     login=function(user,pass) {
         console.log("You tapped the button!")
         //this.setState({text: 'blablabla'})
         //poster.login("apost","hardcoded")
-        poster.login(user,pass)
+        return poster.login(user,pass,"true")
     }
 
     render() {
@@ -39,15 +39,21 @@ class LoginPage extends Component {
                 <TextInput
                     style={{height: 40}}
                     placeholder="password"
-                    onChangeText={(text) => this.setState({user:this.state.user,password:text})}
+                    onChangeText={(text) => (this.state.password = text)}
                 />
                 <Button title={"login"}
                         color={"#ae59f3"}
                     onPress={()=>{
-                        this.login(this.state.user,this.state.password)
+                        logged = this.login(this.state.user,this.state.password)
+                        if(logged == "invalid login"){
+                            this.state.sessionKey = "nope"
+                        }else{
+                            this.state.sessionKey=logged
+                        }
                         //this.login("tryit","another")
                 }
                 }/>
+                <Text>{this.state.sessionKey}</Text>
             </View>
         );
     }

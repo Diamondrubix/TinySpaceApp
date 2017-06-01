@@ -3,7 +3,7 @@
  */
 
     exports.login = function(username,password){
-        fetch('http://172.18.100.133:8090/phoneLogin/', {
+        return fetch('http://172.18.100.133:8090/phoneloginvalidate/', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -12,6 +12,7 @@
             body: JSON.stringify({
                 username: username,
                 password: password,
+                logged: "true"
             })
         })
     }
