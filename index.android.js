@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,TouchableHighlight,ScrollView} from 'react-native';
 import HelloWorld from "react-native/local-cli/templates/HelloWorld/index.android";
-
+import { StackNavigator } from 'react-navigation';
+import AllPage from './AllScreen.js';
 var poster = require('./Post.js');
 var username;
 var password;
@@ -21,14 +22,16 @@ class LoginPage extends Component {
         super(props);
         this.state = {user: 'disadefault',password:'nopass',sessionKey:'not Logged in'};
     }
-    login=function(user,pass) {
-        //this.setState({text: 'blablabla'})
-        //poster.login("apost","hardcoded")
-        return poster.login(user,pass,"true")
+    static navigationOptions = {
+        title: 'Welcome',
+    };
+    Switch2All=function(user,pass) {
+        navigate('Chat')
     }
 
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={{padding: 10}}>
                 <TextInput
@@ -50,7 +53,13 @@ class LoginPage extends Component {
                             poster.login(this.state.user,this.state.password,'true')
                                 .then(function (result) {
                                     logged = result._bodyInit
+                                    //console.warn(logged)
+                                    if(logged == "logged in") {
+                                        //console.warn("yo this is a thing")
+                                        navigate('All')
+                                    }
                                     _this.setState({user:_this.state.user,password:_this.state.password,sessionKey:logged})
+                                    //_this.navigate('Chat')
                                 })
 
 
@@ -76,8 +85,14 @@ class Main extends Component{
     }
 }
 
+const SimpleApp = StackNavigator({
+    Home: { screen: LoginPage },
+    All: { screen: AllPage },
+});
+
+
 page = 1;
 //AppRegistry.registerComponent('TinySpaceApp', () => PizzaTranslator);
 if(page =1) {
-    AppRegistry.registerComponent('TinySpaceApp', () => Main);
+    AppRegistry.registerComponent('TinySpaceApp', () => SimpleApp);
 }
