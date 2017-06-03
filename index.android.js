@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,TouchableHighlight} from 'react-native';
+import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,TouchableHighlight,ScrollView} from 'react-native';
 import HelloWorld from "react-native/local-cli/templates/HelloWorld/index.android";
 
 var poster = require('./Post.js');
@@ -27,6 +27,7 @@ class LoginPage extends Component {
         return poster.login(user,pass,"true")
     }
 
+
     render() {
         return (
             <View style={{padding: 10}}>
@@ -43,22 +44,15 @@ class LoginPage extends Component {
                 <Button title={"login"}
                         color={"#ae59f3"}
                     onPress={()=>{
-                        var logged = "thing"
+                        var _this = this
+                        logged = "thing"
                         //this.state.sessionKey = 'odueau.nhu.a.u.a'
-                        poster.login((this.state.user,this.state.password,'true'))
+                        poster.login(this.state.user,this.state.password,'true')
                             .then(function (result) {
-                                //console.warn(result._bodyInit)
-                                var logged = result._bodyInit
-                                if(logged == "here is a thing"){
-
-                                    //console.warn(logged)
-                                    //this.setState({user:this.state.user,password:this.state.password,sessionKey:logged})
-                                    this.state.sessionKey="here is a test"
-                                }else{
-                                    console.warn("if failed")
-                                    this.setState({user:this.state.user,password:this.state.password,sessionKey:result._bodyInit})
-                                }
+                                logged = result._bodyInit
+                                _this.setState({user:_this.state.user,password:_this.state.password,sessionKey:logged})
                             })
+
 
                         //this.login("tryit","another")
                 }
@@ -81,8 +75,9 @@ class Main extends Component{
         )
     }
 }
-poster.testConnection()
-poster.login("here","there")
 
+page = 1;
 //AppRegistry.registerComponent('TinySpaceApp', () => PizzaTranslator);
-AppRegistry.registerComponent('TinySpaceApp', () => Main);
+if(page =1) {
+    AppRegistry.registerComponent('TinySpaceApp', () => Main);
+}
