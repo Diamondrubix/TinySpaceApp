@@ -19,10 +19,9 @@ class HelloWorldApp extends Component {
 class LoginPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {user: 'disadefault',password:'nopass',sessionKey:'notLogged in'};
+        this.state = {user: 'disadefault',password:'nopass',sessionKey:'not Logged in'};
     }
     login=function(user,pass) {
-        console.log("You tapped the button!")
         //this.setState({text: 'blablabla'})
         //poster.login("apost","hardcoded")
         return poster.login(user,pass,"true")
@@ -34,7 +33,7 @@ class LoginPage extends Component {
                 <TextInput
                     style={{height: 40}}
                     placeholder="UserName"
-                    onChangeText={(text) => this.setState({user:text,password:this.state.password})}
+                    onChangeText={(text) => (this.state.user=text)}
                 />
                 <TextInput
                     style={{height: 40}}
@@ -44,21 +43,34 @@ class LoginPage extends Component {
                 <Button title={"login"}
                         color={"#ae59f3"}
                     onPress={()=>{
-                        logged = this.login(this.state.user,this.state.password)
-                        if(logged == "invalid login"){
-                            this.state.sessionKey = "nope"
-                        }else{
-                            this.state.sessionKey=logged
-                        }
+                        var logged = "thing"
+                        //this.state.sessionKey = 'odueau.nhu.a.u.a'
+                        poster.login((this.state.user,this.state.password,'true'))
+                            .then(function (result) {
+                                //console.warn(result._bodyInit)
+                                var logged = result._bodyInit
+                                if(logged == "here is a thing"){
+
+                                    //console.warn(logged)
+                                    //this.setState({user:this.state.user,password:this.state.password,sessionKey:logged})
+                                    this.state.sessionKey="here is a test"
+                                }else{
+                                    console.warn("if failed")
+                                    this.setState({user:this.state.user,password:this.state.password,sessionKey:result._bodyInit})
+                                }
+                            })
+
                         //this.login("tryit","another")
                 }
                 }/>
-                <Text>{this.state.sessionKey}</Text>
+                <Text>{(this.state.sessionKey).toString()}</Text>
+
             </View>
         );
     }
 }
-
+/*(text) => this.setState({user:text,password:this.state.password})
+* (this.state.sessionKey).toString()*/
 class Main extends Component{
     render(){
         return(
