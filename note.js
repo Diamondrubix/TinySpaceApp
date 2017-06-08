@@ -1,44 +1,21 @@
-      <Button
-        style={{fontSize: 20, color: 'green'}}
-        styleDisabled={{color: 'red'}}
-        onPress={() => this._handlePress()}>
-        Press Me!
-      </Button>
+import React, { Component } from 'react';
+import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,TouchableHighlight,ScrollView} from 'react-native';
+import { TabNavigator } from "react-navigation";
 
-      <Button
-        onPress={onPressLearnMore}
-        title="Learn More"
-        color="#841584"
-        accessibilityLabel="Learn more about this purple button"
-      />
+class RecentChatsScreen extends React.Component {
+    render() {
+        return <Text>List of recent chats</Text>
+    }
+}
 
-        <Button
-            style={{fontSize: 20}}
-            title="login"
-            onPress={this._onPressButton}>
-            Press Me!
-        </Button>
+class AllContactsScreen extends React.Component {
+    render() {
+        return <Text>List of all contacts</Text>
+    }
+}
 
-        <TextInput
-            style={{height: 40}}
-            placeholder="password"
-            onChangeText={(text) => this.setState({text})}
-        />
-
-
-        class MyButton extends Component {
-            _onPressButton() {
-                console.log("You tapped the button!");
-                poster.testConnection()
-            }
-
-            render() {
-                return (
-                    <TouchableHighlight onPress={this._onPressButton}>
-                        <Text>Button</Text>
-                    </TouchableHighlight>
-                );
-            }
-        }
-
-      #841584
+const MainScreenNavigator = TabNavigator({
+    Recent: { screen: RecentChatsScreen },
+    All: { screen: AllContactsScreen },
+});
+AppRegistry.registerComponent('TinySpaceApp', () => MainScreenNavigator);

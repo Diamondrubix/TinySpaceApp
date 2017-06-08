@@ -6,6 +6,22 @@
 url = '10.0.0.99'
 port = '8090'
 
+exports.AllPage = function (key) {
+    return fetch('http://'+url+':'+port+'/phoneAll',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                key: key
+            })
+        })
+        //.then((result)=> {console.warn("Result:",result); return result})
+        //.catch((error)=> {console.warn("Error: ",result); return result})
+}
+
 exports.login = function(username,password){
     return fetch('http://'+url+':'+port+'/phoneloginvalidate/', {
         method: 'POST',
@@ -19,14 +35,7 @@ exports.login = function(username,password){
             logged: "true"
         })
     })
-        /*
-        .then(function(msg){
-            console.warn("return ok "+msg.thing)
-        })
-        .catch(function (err) {
-            console.warn("return error "+err)
-        })
-        */
+
 }
 
 //* this post request works
