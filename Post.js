@@ -2,8 +2,8 @@
  * Created by diamondrubix on 5/29/17.
  */
 
-//url = '172.18.100.133'
-url = '10.0.0.99'
+url = '172.18.100.133'
+//url = '10.0.0.99'
 port = '8090'
 
 exports.AllPage = function (key) {

@@ -8,6 +8,7 @@ var poster = require('./Post.js');
 var username;
 var password;
 key = "no key";
+posts = {none: 'no posts'}
 
 class HelloWorldApp extends Component {
 
@@ -66,7 +67,9 @@ class LoginPage extends Component {
                                     return logged
                                 }).then(function (result) {
                                 if(result != "bad Login") {
-                                    navigate('Main')
+                                    start(navigate)
+                                    //navigate('Main')
+
                                 }
                                 });
 
@@ -79,6 +82,25 @@ class LoginPage extends Component {
         );
     }
 }
+
+function start(navigate){
+    poster.AllPage(key)
+        .then(function (result) {
+            //posts = result._bodyInit
+            //_this.setState({post: result._bodyInit})
+            return result._bodyInit
+        })
+        .then(function (result) {
+            return JSON.parse(result)
+        })
+        .then(function(result){
+            posts = result
+        })
+        .then(function () {
+            navigate('Main')
+        })
+}
+
 /*(text) => this.setState({user:text,password:this.state.password})
  * (this.state.sessionKey).toString()*/
 class Main extends Component{
