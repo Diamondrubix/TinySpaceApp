@@ -2,12 +2,13 @@
  * Created by diamondrubix on 5/29/17.
  */
 
-url = '172.18.100.133'
+//url = '172.18.100.133'
+url = '172.16.15.1'
 //url = '10.0.0.99'
 port = '8090'
 
 exports.AllPage = function (key) {
-    return fetch('http://'+url+':'+port+'/phoneAll',
+    return fetch('http://'+url+':'+port+'/phoneGetPost',
         {
             method: 'POST',
             headers: {
@@ -23,7 +24,7 @@ exports.AllPage = function (key) {
 }
 
 exports.login = function(username,password){
-    return fetch('http://'+url+':'+port+'/phoneloginvalidate/', {
+    return fetch('http://'+url+':'+port+'/phoneloginvalidate', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
