@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
 import { TabNavigator } from "react-navigation";
 var poster = require('./Post.js');
-
+import Ask from './ask.js';
 
 class Answers extends Component {
     constructor(props) {
@@ -32,41 +32,40 @@ class All extends React.Component {
 
     }
     render() {
-        /*
-
-         */
         return(
 
             <View style={{flex: 1}}>
+
                 <View style={{flex: 2, backgroundColor: '#5082e5'}}>
-                    <View>
-                        <Text style={styles.title}>{posts.title}</Text>
-                    </View>
+                    <Text style={styles.title}>{posts.title}</Text>
                 </View>
-                <View style={{flex: 20, backgroundColor: '#fbffff'}} >
-                    <View>
-                        <Text style={styles.content}>{posts.content}</Text>
-                        <TextInput
-                            style={{height: 40}}
-                            placeholder="Answer"
-                            defaultValue={""}
-                            onChangeText={(text) => (this.state.answer=text)}
-                        />
-                        <Button title={"next post"}
-                                color={"#ae59f3"}
-                                onPress={()=> {
-                                    //var _this = this
-                                    getPost(this)
 
-                                }}/>
-                        <Button title={"post answer"}
-                                onPress={()=>{
-                                //thing here
-
-                                }}/>
+                <View style={{flex: 20, backgroundColor: '#fffdfe'}} >
+                    <Text style={styles.content}>{posts.content}</Text>
+                    <TextInput
+                        style={{height: 40}}
+                        placeholder="Answer"
+                        defaultValue={""}
+                        onChangeText={(text) => (this.state.answer=text)}
+                    />
                     </View>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <Button title={"next post"}
+                            color={"#ae59f3"}
+                            onPress={()=> {
+                                //var _this = this
+                                getPost(this)
+                            }}/>
+                    <Button title={"post answer"}
+                            onPress={()=>{
+                                var answer ={
+                                    answer: this.state.answer,
+                                }
+                                poster.sendPost('answer',answer)
+                            }}/>
                 </View>
             </View>
+
 
 
 
@@ -102,16 +101,10 @@ const styles = StyleSheet.create({
     content: {
         color: 'black',
         fontSize: 20,
-        backgroundColor: '#efefef',
+        backgroundColor: '#deecef',
     },
 });
 
-
-class Ask extends React.Component {
-    render() {
-        return <Text>this is the questions page</Text>
-    }
-}
 
 class Profile extends React.Component {
     render() {
@@ -125,6 +118,7 @@ const MainScreenNavigator = TabNavigator({
     Profile: { screen: Profile},
 },  {tabBarOptions: {
     activeTintColor: '#fefdff',
+    activeBackgroundColor: '#8e46c9',
     labelStyle: {
         fontSize: 12,
     },

@@ -5,10 +5,19 @@ import { StackNavigator } from 'react-navigation';
 import AllPage from './AllScreen.js';
 import MainScreenNavigator from './tabnav.js';
 var poster = require('./Post.js');
+//var sockets = require('./socketManager.js');
 var username;
 var password;
 key = "no key";
-posts = {none: 'no posts'}
+posts = {none: 'no posts'};
+
+var ws = new WebSocket('ws://172.16.15.1/test');
+
+ws.onopen = () => {
+    // connection opened
+    console.warn('did it send?')
+    ws.send('something'); // send a message
+};
 
 class HelloWorldApp extends Component {
 
@@ -55,13 +64,13 @@ class LoginPage extends Component {
                 <Button title={"login"}
                         color={"#ae59f3"}
                         onPress={()=>{
-                            var _this = this
-                            logged = "thing"
+                            var _this = this;
+                            logged = "thing";
                             //this.state.sessionKey = 'odueau.nhu.a.u.a'
                             poster.login(this.state.user,this.state.password,'true')
                                 .then(function (result) {
-                                    logged = result._bodyInit
-                                    key = logged
+                                    logged = result._bodyInit;
+                                    key = logged;
                                     _this.setState({user:_this.state.user,password:_this.state.password,sessionKey:logged})
                                     //_this.navigate('Chat')
                                     return logged
