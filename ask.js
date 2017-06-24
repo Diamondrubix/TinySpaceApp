@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
 import { TabNavigator } from "react-navigation";
-var poster = require('./Post.js');
+var poster = require('./PostRequest.js');
 class Ask extends React.Component {
 
     constructor(props) {

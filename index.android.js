@@ -4,20 +4,15 @@ import HelloWorld from "react-native/local-cli/templates/HelloWorld/index.androi
 import { StackNavigator } from 'react-navigation';
 import AllPage from './AllScreen.js';
 import MainScreenNavigator from './tabnav.js';
-var poster = require('./Post.js');
-//var sockets = require('./socketManager.js');
-var username;
+var poster = require('./PostRequest.js');
+username = 'null';
 var password;
 key = "no key";
-posts = {none: 'no posts'};
-
-var ws = new WebSocket('ws://172.16.15.1/test');
-
-ws.onopen = () => {
-    // connection opened
-    console.warn('did it send?')
-    ws.send('something'); // send a message
-};
+//url = '172.18.100.133' //home
+url = '172.16.15.1' //always
+//url = '10.0.0.99' //marco
+port = '8090'
+//url = '192.168.100.197'//cousin2
 
 class HelloWorldApp extends Component {
 
@@ -76,6 +71,7 @@ class LoginPage extends Component {
                                     return logged
                                 }).then(function (result) {
                                 if(result != "bad Login") {
+                                    username =_this.state.user
                                     start(navigate)
                                     //navigate('Main')
 

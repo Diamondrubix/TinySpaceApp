@@ -2,11 +2,6 @@
  * Created by diamondrubix on 5/29/17.
  */
 //url = '172.18.100.133' //home
-url = '172.16.15.1' //always
-//url = '10.0.0.99' //marco
-port = '8090'
-//url = '192.168.100.197'//cousin2
-
 exports.AllPage = function (key) {
     return fetch('http://'+url+':'+port+'/phoneGetPost',
         {
@@ -33,6 +28,22 @@ exports.login = function(username,password){
         body: JSON.stringify({
             username: username,
             password: password,
+            logged: "true"
+        })
+    })
+
+}
+
+exports.getAllPost = function(key,username){
+    return fetch('http://'+url+':'+port+'/phoneGetAllUserPost', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            key: key,
+            username: username,
             logged: "true"
         })
     })
