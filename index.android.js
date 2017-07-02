@@ -9,8 +9,9 @@ username = 'null';
 var password;
 key = "no key";
 //url = '172.18.100.133' //home
-url = '172.16.15.1' //always
+//url = '172.16.15.1' //always
 //url = '10.0.0.99' //marco
+url = '192.168.88.81' //grand,ma
 port = '8090'
 //url = '192.168.100.197'//cousin2
 

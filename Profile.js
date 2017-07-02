@@ -4,56 +4,31 @@
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
 var poster = require('./PostRequest.js');
-import All from './All.js'
+import All from './answer.js'
 import post from './displayPost.js'
-
-
-class Blink extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {showText: true};
-
-        // Toggle the state every second
-        setInterval(() => {
-            this.setState({ showText: !this.state.showText });
-        }, 1000);
-    }
-
-    render() {
-        let display = this.props.text.r1;
-        return (
-            <Text>{display}</Text>
-        );
-    }
-}
-
 
 class Profile extends React.Component {
     constructor() {
         super();
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.state = {
-            dataSource: ds.cloneWithRows(['row 1', 'row 2','sup']),
-        };
+        this.state = {results:[{
+            key:1,
+            title: 'null',
+        }]};
         getAllPost(this)
     }
 
     render() {
+        const renderedButtons =  this.state.results.map(b => {
+            return <Text key={b.key}>{b.title}</Text>
+        });
         return (
             <View>
-                <View style = {{
-                    height: 50,
-                    alignItems: 'center',
-                }}>
-                    <Text style={styles.title}>{username}</Text>
-                </View>
-
+                {renderedButtons}
             </View>
         )
     }
 }
-
-
 
 function getAllPost(_this){
     data = {
@@ -65,18 +40,22 @@ function getAllPost(_this){
             return result._bodyInit
         })
         .then(function (result) {
-            return JSON.parse(result)
+            return JSON.parse(result).result
         })
         .then(function (result) {
-            //_this.setState({title: result.title, content: result.content})
+            for(var i =0; i<result.length;i++){
+                result[i].key = (i+1)
+            }
+            return result
+        })
+        .then(function (result) {
+            _this.setState({results:result})
+            //_this.state.results = result
         })
         .catch(function (err) {
-            
+            console.warn("I guess there was a post request error in profile.js in the getAllPost method "+err)
         })
-    
 }
-
-
 
 const styles = StyleSheet.create({
     title: {
