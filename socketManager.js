@@ -1,36 +1,27 @@
-/**
- * Created by diamondrubix on 6/19/17.
- */
-import React from 'react'
-import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';4
-import SocketIOClient from 'socket.io-client'
+/*
 
-//web sockets vs this? look into that
-//socke = new WebSocket('ws://172.16.15.1:8090);
+import React from 'react-native';
+import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,TouchableHighlight,ScrollView,StatusBar} from 'react-native';
+// ... [other imports]
 
-const socke = new WebSocket('ws://172.16.15.1:8090')
+window.navigator.userAgent = 'react-native';
 
+import io from 'socket.io-client/socket.io';
 
-class socket extends React.Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
-        socke.addEventListener('test',function(event){
-            socke.send('Hello from react')
-        })
-        //this.socket = SocketIOClient('http://'+url+':'+port)
+        this.socket = io(url+':3001', {jsonp: false});
     }
 
-    render() {
-        //let display = this.state.showText ? this.props.text : ' ';
-        return (
-            <Text>just some text</Text>
-        );
+    render(){
+        return(
+            <Text>socket stuff</Text>
+        )
     }
 
-    test() {
-        console.warn('test')
-        //socket.emit('test','hello world!')
-    }
+    // no you can use this.socket.io(...)
+    // or any other functionality within socket.io!
+
 }
-
-module.exports = socket
+    */

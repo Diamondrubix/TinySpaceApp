@@ -3,48 +3,80 @@
  */
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
+var poster = require('./PostRequest.js');4
 
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        padding:12,
-        flexDirection:'row',
-        alignItems:'center'
-    }
+    title: {
+        color: '#fbffff',
+        fontWeight: 'bold',
+        fontSize: 30,
+        justifyContent: 'center'
+    },
+    content: {
+        color: 'black',
+        fontSize: 20,
+        backgroundColor: '#deecef',
+    },
 });
 
-
-
-class post extends Component {
+class Post extends Component {
     constructor(props) {
         super(props);
-        this.state = {showText: true};
-
-        // Toggle the state every second
-        setInterval(() => {
-            this.setState({ showText: !this.state.showText });
-        }, 1000);
+        this.state = {results:[{
+            key:1,
+            title: 'null',
+        }]};
+        getAllPost(this)
     }
 
     render() {
-        let display = this.state.showText ? this.props.text : ' ';
+        const renderedButtons =  this.state.results.map(b => {
+            return (
+                <View key={b.key}>
+                    <View style={{ backgroundColor: '#5082e5'}}>
+                        <Text style ={styles.title}>{b.title}</Text>
+                    </View>
+                    <View style={{backgroundColor: '#fffdfe'}}>
+                        <Text style = {styles.content}>{b.content}</Text>
+                    </View>
+                </View>
+            )
+        });
         return (
-            <Text>{display}</Text>
-        );
+            <ScrollView>
+                {renderedButtons}
+            </ScrollView>
+        )
     }
+
+
+}
+function getAllPost(_this){
+    data = {
+        key:key,
+        username:username,
+    };
+    poster.getAllPost(key,username)
+        .then(function (result) {
+            return result._bodyInit
+        })
+        .then(function (result) {
+            return JSON.parse(result).result
+        })
+        .then(function (result) {
+            for(var i =0; i<result.length;i++){
+                result[i].key = (i+1)
+            }
+            return result
+        })
+        .then(function (result) {
+            _this.setState({results:result})
+            //_this.state.results = result
+        })
+        .catch(function (err) {
+            console.warn("I guess there was a post request error in profile.js in the getAllPost method "+err)
+        })
 }
 
-class BlinkApp extends Component {
-    render() {
-        return (
-            <View>
-                <Blink text='I love to blink' />
-                <Blink text='Yes blinking is so great' />
-                <Blink text='Why did they ever take this out of HTML' />
-                <Blink text='Look at me look at me look at me' />
-            </View>
-        );
-    }
-}
 
-export default post;
+export default Post;

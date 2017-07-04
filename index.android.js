@@ -5,18 +5,20 @@ import { StackNavigator } from 'react-navigation';
 import AllPage from './AllScreen.js';
 import MainScreenNavigator from './tabnav.js';
 var poster = require('./PostRequest.js');
+var test = require('./test.js')
+//var socket = require('./socketManager.js')
 username = 'null';
 var password;
-key = "no key";
 //url = '172.18.100.133' //home
-//url = '172.16.15.1' //always
+url = '172.16.15.1' //always
 //url = '10.0.0.99' //marco
-url = '192.168.88.81' //grand,ma
+//url = '10.243.122.213' //disposable
 port = '8090'
 //url = '192.168.100.197'//cousin2
 
-class HelloWorldApp extends Component {
 
+
+class HelloWorldApp extends Component {
     render() {
         return (
             <Text>Welcome to TinySpace</Text>
@@ -116,6 +118,7 @@ class Main extends Component{
                 <LoginPage/>
             </View>
         )
+
     }
 }
 

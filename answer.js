@@ -2,8 +2,9 @@
  * Created by diamondrubix on 6/21/17.
  */
 import React, { Component } from 'react';
-import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
+import {Animated,AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
 var poster = require('./PostRequest.js');
+var FadeInView = require('./Fade.js')
 class All extends React.Component {
 
     // onChange={this.handleChange};
@@ -12,15 +13,51 @@ class All extends React.Component {
         super(props);
         //this.state = {post: '{title:"thing"'};
         this.state = {post: 'disadefault',answer: 'no answer'};
+        this.fade = new Animated.Value(0);
+        this.faded = false;
         _this = this;
 
     }
+
+    componentDidMount() {
+        Animated.timing(                            // Animate over time
+            this.fade,                      // The animated value to drive
+            {
+                toValue: 1,                             // Animate to opacity: 1, or fully opaque
+            }
+        ).start();                                  // Starts the animation
+
+    }
+
+    fadeOut(){
+        Animated.timing(                            // Animate over time
+            this.fade,                      // The animated value to drive
+            {
+                toValue: 0,                             // Animate to opacity: 1, or fully opaque
+                duration: 50,
+            }
+        ).start();
+    }
+    fadeIn(){
+        Animated.timing(                            // Animate over time
+            this.fade,                      // The animated value to drive
+            {
+                toValue: 1, // Animate to opacity: 1, or fully opaque
+                duration: 500,
+            }
+        ).start();
+    }
+
     render() {
         return(
-
             <View style={{flex: 1}}>
                 <ScrollView>
-                    <View style = {{flex: 20}}>
+
+                    <Animated.View                            // Special animatable View
+                        style={{
+                            opacity: this.fade         // Bind opacity to animated value
+                        }}
+                    >
                         <View style={{ backgroundColor: '#5082e5'}}>
                             <Text style={styles.title}>{posts.title}</Text>
                         </View>
@@ -34,14 +71,21 @@ class All extends React.Component {
                                 onChangeText={(text) => (this.state.answer=text)}
                             />
                         </View>
-                    </View>
+                    </Animated.View>
                 </ScrollView>
+
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                     <Button title={"next post"}
                             color={"#ae59f3"}
                             onPress={()=> {
                                 //var _this = this
-                                getPost(this)
+                                //this.componentDidMount()
+                                //this.fadeIn()
+                                this.fadeOut()
+                                setTimeout(()=>{
+                                    this.fadeIn()
+                                    getPost(this)
+                                },50)
                             }}/>
                     <Button title={"post answer"}
                             onPress={()=>{
