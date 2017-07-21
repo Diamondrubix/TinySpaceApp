@@ -50,6 +50,24 @@ exports.getAllPost = function(key,username){
 
 }
 
+exports.getPostAnswers = function(key,url){
+    return fetch('http://'+url+':'+port+'/phoneGetPostAnswers', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            key: key,
+            username: username,
+            url: url,
+            logged: "true"
+        })
+    })
+
+}
+
+
 exports.sendPost = function (location,data) {
     fetch('http://'+url+':'+port+'/'+location+'/',{
         method: 'POST',

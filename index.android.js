@@ -4,13 +4,13 @@ import HelloWorld from "react-native/local-cli/templates/HelloWorld/index.androi
 import { StackNavigator } from 'react-navigation';
 import AllPage from './AllScreen.js';
 import MainScreenNavigator from './tabnav.js';
-var poster = require('./PostRequest.js');
+var poster = require('./utility/PostRequest.js');
 var test = require('./test.js')
 //var socket = require('./socketManager.js')
 username = 'null';
 var password;
-//url = '172.18.100.133' //home
-url = '172.16.15.1' //always
+url = '172.18.100.133' //home
+//url = '172.16.15.1' //always
 //url = '10.0.0.99' //marco
 //url = '10.243.122.213' //disposable
 port = '8090'
@@ -103,6 +103,15 @@ function start(navigate){
         })
         .then(function(result){
             posts = result
+                /*
+            poster.getPostAnswers(key,result.url)
+                .then(function(result){
+                    return result._bodyInit
+                })
+                .then(function(result){
+                    //answers= JSON.parse(result)
+                }
+                */
         })
         .then(function () {
             navigate('Main')

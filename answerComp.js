@@ -1,5 +1,5 @@
 /**
- * Created by diamondrubix on 6/22/17.
+ * Created by diamondrubix on 7/4/17.
  */
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     },
 });
 
-class Post extends Component {
+class Answer extends Component {
     constructor(props) {
         super(props);
         this.state = {results:[{
@@ -51,12 +51,13 @@ class Post extends Component {
 
 
 }
+
 function getAllPost(_this){
     data = {
         key:key,
         username:username,
     };
-    poster.getAllPost(key,username)
+    poster.getAllAnswers(key,username)
         .then(function (result) {
             return result._bodyInit
         })
@@ -74,9 +75,9 @@ function getAllPost(_this){
             //_this.state.results = result
         })
         .catch(function (err) {
-            console.warn("I guess there was a post request error in profile.js in the getAllPost method "+err)
+            console.warn("I guess there was a post request error in answerComp.js in the getAllPost method "+err)
         })
 }
 
 
-export default Post;
+export default Answer;

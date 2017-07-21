@@ -3,9 +3,9 @@ import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Bu
 import { TabNavigator } from "react-navigation";
 import Ask from './ask.js';
 import Profile from './Profile.js'
-import All from './answer.js'
-import socket from './socketManager.js'
-var poster = require('./PostRequest.js');
+import All from './AnswerPage.js'
+import socket from './utility/socketManager.js'
+var poster = require('./utility/PostRequest.js');
 
 
 const MainScreenNavigator = TabNavigator({

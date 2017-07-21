@@ -4,7 +4,10 @@
 import React, { Component } from 'react';
 import {Modal,AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
 import { TabNavigator } from "react-navigation";
-var poster = require('./PostRequest.js');
+//sha1 = require('sha1');
+var sha1 = require('sha1');
+console.warn(sha1("message"))
+var poster = require('./utility/PostRequest.js');
 class Ask extends React.Component {
 
     constructor(props) {
@@ -79,7 +82,7 @@ class Ask extends React.Component {
                                     content:this.state.question,
                                     tags:tags,
                                     date:new Date(),
-                                    url:'url?',
+                                    url:'url',
                                 })
                             }}/>
 

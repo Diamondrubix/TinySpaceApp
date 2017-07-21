@@ -3,8 +3,8 @@
  */
 import React, { Component } from 'react';
 import {AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
-var poster = require('./PostRequest.js');
-import All from './answer.js'
+var poster = require('./utility/PostRequest.js');
+import All from './AnswerPage.js'
 import Post from './displayPost.js'
 
 

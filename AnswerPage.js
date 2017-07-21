@@ -3,7 +3,8 @@
  */
 import React, { Component } from 'react';
 import {Animated,AppRegistry, Text, Image, View, StyleSheet,TextInput, ListView, Alert,Button,Touchable,ScrollView} from 'react-native';
-var poster = require('./PostRequest.js');
+var poster = require('./utility/PostRequest.js');
+var socket = require('./utility/socketManager.js');
 var FadeInView = require('./Fade.js')
 class All extends React.Component {
 
@@ -12,6 +13,7 @@ class All extends React.Component {
     constructor(props) {
         super(props);
         //this.state = {post: '{title:"thing"'};
+        this.url = 'no url'
         this.state = {post: 'disadefault',answer: 'no answer'};
         this.fade = new Animated.Value(0);
         this.faded = false;
@@ -66,12 +68,19 @@ class All extends React.Component {
                             <Text style={styles.content}>{posts.content}</Text>
                             <TextInput
                                 style={{height: 40}}
-                                placeholder="Answer"
+                                placeholder="answer"
                                 defaultValue={""}
                                 onChangeText={(text) => (this.state.answer=text)}
                             />
                         </View>
+
+                        <View>
+                            <Text>answers go here</Text>
+                        </View>
                     </Animated.View>
+                    {/*this part is going to be for displaying answers*/}
+
+
                 </ScrollView>
 
                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -89,20 +98,29 @@ class All extends React.Component {
                             }}/>
                     <Button title={"post answer"}
                             onPress={()=>{
-                                var answer ={
-                                    answer: this.state.answer,
-                                }
-                                poster.sendPost('answer',answer)
+
+                                //console.warn(this.state.answer)
+                                postAnswer(_this,this.state.answer)
+                                //poster.sendPost('answer',answer)
                             }}/>
                 </View>
             </View>
 
-
-
-
         );
     }
 }
+
+function postAnswer(_this,answer){
+    socket.sendSocket('answer', {
+        sid: key,
+        url: _this.state.url,
+        content: answer,
+        test: 'just a random string sent from the phone for testing'
+    })
+}
+
+
+//ok so this needs to change to the algorithm. This is what needs to be written into the server
 function getPost(_this){
     poster.AllPage(key)
         .then(function (result) {
@@ -118,9 +136,25 @@ function getPost(_this){
             return posts
         })
         .then(function (result) {
-            _this.setState({title: result.title, content: result.content})
+            _this.url = result.url
+            _this.setState({title: result.title, content: result.content,url: result.url})
+            //socket.getAnswers()
+            //postAnswer(_this,result.url) //left off here, remember to delete this comment
+            return result
+        })//i get answers from this point on
+        .then(function (result){
+            /*
+            poster.getPostAnswers(key,result.url)
+                .then(function(result){
+                    return result._bodyInit
+                })
+                .then(function(result){
+                    //answers= JSON.parse(result)
+                })
+                */
         })
 }
+
 
 const styles = StyleSheet.create({
     title: {
